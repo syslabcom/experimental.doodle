@@ -16,10 +16,10 @@
   <genericsetup:upgradeStep
       title="Register Poll browser views"
       description="Update the Poll FTI default view on existing sites."
+      profile="experimental.doodle:default"
       source="1001"
       destination="1002"
       handler="experimental.doodle.upgrades.v1002.install_poll_views"
-      profile="experimental.doodle:default"
       />
 
   <!-- -*- extra stuff goes here -*- -->

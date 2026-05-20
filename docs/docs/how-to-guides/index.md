@@ -18,6 +18,13 @@ This part of the documentation contains how-to guides, including installation an
 https://diataxis.fr/how-to-guides/
 ```
 
+## Polls
+
+```{toctree}
+:maxdepth: 1
+
+vote-on-a-poll
+```
 
 ## Authors
 

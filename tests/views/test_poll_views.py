@@ -158,9 +158,7 @@ class TestUpgradeStep1002:
 
     def test_upgrade_step_registered(self, integration):
         setup_tool = api.portal.get_tool("portal_setup")
-        grouped = setup_tool.listUpgrades(
-            "experimental.doodle:default", show_old=True
-        )
+        grouped = setup_tool.listUpgrades("experimental.doodle:default", show_old=True)
         flat = []
         for entry in grouped:
             flat.extend(entry if isinstance(entry, list) else [entry])

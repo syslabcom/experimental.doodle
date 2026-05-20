@@ -34,6 +34,14 @@ poll-content-type
 vote-storage
 ```
 
+## Views
+
+```{toctree}
+:maxdepth: 1
+
+poll-views
+```
+
 ## Configuration
 
 -   {doc}`plone:contributing/documentation/themes-and-extensions`

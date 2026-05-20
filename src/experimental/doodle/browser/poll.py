@@ -42,8 +42,7 @@ class PollView(BrowserView):
     def options(self):
         """Return ``[(index, label), ...]`` for every proposed slot."""
         return [
-            (i, _format_slot(dt))
-            for i, dt in enumerate(self.context.options or [])
+            (i, _format_slot(dt)) for i, dt in enumerate(self.context.options or [])
         ]
 
     @property
