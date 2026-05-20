@@ -32,12 +32,17 @@
               >member</span>
             </td>
             <td>
-              <a tal:condition="row/can_toggle"
-                 tal:content="python:'Unselect' if row['selected'] else 'Select'"
-                 tal:attributes="
-                   href row/toggle_url;
-                 "
-              >Select</a>
+              <form method="post"
+                    tal:condition="row/can_toggle"
+                    tal:attributes="
+                      action row/toggle_url;
+                    "
+              >
+                <!-- Removed _authenticator input -->
+                <button type="submit"
+                        tal:content="python:'Unselect' if row['selected'] else 'Select'"
+                >Select</button>
+              </form>
             </td>
           </tr>
         </tbody>

@@ -1,6 +1,7 @@
 from datetime import date
 
 import plone.api
+from plone.protect.authenticator import createToken
 
 
 class TestParticipation:
@@ -29,8 +30,11 @@ class TestParticipation:
             option.reindexObjectSecurity()
 
         with plone.api.env.adopt_user(username="alice"):
+            option.REQUEST.environ["REQUEST_METHOD"] = "POST"
+            option.REQUEST.form["_authenticator"] = createToken()
             option.restrictedTraverse("@@toggle-participation")()
             assert "alice" in option.participants
 
+            option.REQUEST.form["_authenticator"] = createToken()
             option.restrictedTraverse("@@toggle-participation")()
             assert "alice" not in option.participants
