@@ -1,51 +1,69 @@
 # MVP Plan: Doodle Addon for Plone
 
-This document outlines the atomic steps for implementing a minimal Doodle-like addon for Plone, focusing on folderish and date content types, permissions, and a doodle-style view.
+A minimal Doodle-like addon for Plone with folderish and date content types, permissions, and a Bootstrap-styled doodle view with participant selection toggle.
 
 ---
 
-## Atomic Commit Steps
+## Completed MVP (All Tests Passing ✅)
 
-1. **Add schema interface for `experimental.doodle.folder`**
-   - File: `src/experimental/doodle/interfaces.py`
-2. **Implement `experimental.doodle.folder` content type**
-   - File: `src/experimental/doodle/content/folder.py`
-3. **Register `experimental.doodle.folder` in ZCML**
-   - File: `src/experimental/doodle/configure.zcml`
-4. **Add type info XML for folder**
-   - File: `src/experimental/doodle/profiles/default/types/experimental.doodle.folder.xml`
-5. **Add custom permissions for folder**
-   - File: `src/experimental/doodle/permissions.zcml`
-6. **Add schema interface for `experimental.doodle.date`**
-   - File: `src/experimental/doodle/interfaces.py`
-7. **Implement `experimental.doodle.date` content type**
-   - File: `src/experimental/doodle/content/date.py`
-8. **Register `experimental.doodle.date` in ZCML**
-   - File: `src/experimental/doodle/configure.zcml`
-9. **Add type info XML for date**
-   - File: `src/experimental/doodle/profiles/default/types/experimental.doodle.date.xml`
-10. **Add custom permissions for date**
-    - File: `src/experimental/doodle/permissions.zcml`
-11. **Implement user selection logic (`participants` field) in date type**
-12. **Implement doodle-style browser view**
-    - File: `src/experimental/doodle/browser/doodleview.py`
-13. **Add tests for type creation and permissions**
-14. **Update documentation**
-    - Files: `README.md`, `docs/concepts/plan.md`
+### Content Types
+- ✅ `experimental.doodle.folder` (folderish container type)
+- ✅ `experimental.doodle.date` (date item with participants set field)
 
----
+### Browser View & Interaction
+- ✅ Doodle view renders sorted dates in a responsive table
+- ✅ Participants displayed as Bootstrap badge pills
+- ✅ Toggle button for current user participation (POST-based with CSRF protection)
+- ✅ Participation redirect back to referrer or doodle view
 
-## Key Decisions
-- Two types: `experimental.doodle.folder` (folderish), `experimental.doodle.date` (date, non-folderish)
-- `participants` field for user selection
-- Custom permissions for each type
-- Doodle-style view for folder
+### UI/Styling
+- ✅ Bootstrap-compatible markup (card, table-striped, badge, btn-primary)
+- ✅ Responsive layout with table-responsive wrapper
+- ✅ Minimal custom CSS (badge flex-wrap, button nowrap)
+- ✅ Bundle registration via csscompilation field (Plone 6.x pattern)
+
+### Permissions & Access Control
+- ✅ Custom add permissions for both types
+- ✅ Browser layer registration active
+- ✅ CSRF token validation on participation toggle
+- ✅ Anonymous user rejection on toggle attempt
+
+### Tests (15 Passed)
+- ✅ 10 setup tests (install, uninstall, browser layer, permissions, type registration)
+- ✅ 1 testing profile test
+- ✅ 1 doodle view test (sorted dates rendering)
+- ✅ 1 participation toggle test
+- ✅ Code lint & quality (ruff, pyroma 10/10, zpretty, python-versions)
 
 ---
 
-## Verification
-- Addon installs, both types available
-- Permission separation works
-- Dates can be added, users can select dates
-- Doodle view displays sorted dates and user selections
-- Tests and lint pass after each step
+## Key Implementation Details
+
+**Files:**
+- `src/experimental/doodle/browser/doodle.pt` — Template with Bootstrap markup + tal:attributes for dynamic classes
+- `src/experimental/doodle/browser/doodle.py` — View with rows() and date_label() methods
+- `src/experimental/doodle/browser/participation.py` — ToggleParticipationView with CSRF check
+- `src/experimental/doodle/browser/static/doodle.css` — Minimal responsive utilities
+- `src/experimental/doodle/profiles/default/registry/main.xml` — Bundle registration
+
+**Key Decisions:**
+- Two separate types for structural clarity
+- `participants` field as set of user IDs (not explicit selection field)
+- POST-based toggle pattern for atomic updates
+- Bootstrap-first styling aligned with Plone 6.x defaults
+- explicit tal:attributes for class binding (not string interpolation)
+
+---
+
+## Next Atomic Steps (Post-MVP)
+
+1. **Results/Summary View** — Display vote counts per date (new view method, optional aggregation UI)
+2. **Control Panel** — Registry settings for participation notifications/preferences
+3. **Catalog Indexing** — Add doodle-specific indexes for efficient queries (if scaling)
+4. **Edge Case Tests** — Validate CSRF token reuse, anonymous rejection, data persistence
+5. **Advanced Features** — Date filtering, search, results export
+
+---
+
+## Session Status
+Session completed with all quality gates green. Ready for code review or feature expansion.
