@@ -20,6 +20,14 @@
       directory="profiles/uninstall"
       />
 
+  <genericsetup:registerProfile
+      name="testing"
+      title="Experimental Doodle: Testing Data"
+      description="Create test users and sample doodle content for development/testing."
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      directory="profiles/testing"
+      />
+
   <!-- Hide Uninstall Profile-->
   <utility
       factory=".setuphandlers.HiddenProfiles"

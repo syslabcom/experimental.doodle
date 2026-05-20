@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<import-steps>
+  <import-step id="experimental.doodle.testingdata"
+               description="Populate site with testing users and doodle sample content."
+               handler="experimental.doodle.setuphandlers.testing.populate_testing_data"
+               title="Experimental Doodle testing data"
+               version="1000"
+  />
+</import-steps>
