@@ -1,0 +1,10 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    i18n_domain="experimental.doodle"
+    >
+
+  <!-- Dexterity classes are wired through the FTI XML in
+       profiles/default/types/Poll.xml. This file exists so the content
+       subpackage can be included from the main configure.zcml. -->
+
+</configure>

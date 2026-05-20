@@ -8,7 +8,7 @@ myst:
 ---
 
 This glossary provides example terms and definitions relevant to **Experimental Doodle**.
-A new addon for Plone
+A new add-on for Plone
 
 ```{note}
 This is an example glossary demonstrating MyST Markdown’s `{glossary}` directive. You can adapt it for your project’s appendix by editing or replacing these entries with your own terms and definitions.

@@ -1,16 +1,16 @@
 ---
 myst:
   html_meta:
-    "description": "A new addon for Plone"
-    "property=og:description": "A new addon for Plone"
+    "description": "A new add-on for Plone"
+    "property=og:description": "A new add-on for Plone"
     "property=og:title": "Experimental Doodle"
-    "keywords": "Experimental Doodle, documentation, A new addon for Plone"
+    "keywords": "Experimental Doodle, documentation, A new add-on for Plone"
 ---
 
 # Experimental Doodle
 
 Welcome to the documentation for Experimental Doodle!
-A new addon for Plone
+A new add-on for Plone
 
 This scaffold provides a ready-to-use environment for creating comprehensive documentation for {term}`Plone` projects, based on {term}`Plone Sphinx Theme`.
 
