@@ -7,4 +7,12 @@
 
   <!-- -*- extra stuff goes here -*- -->
 
+  <browser:page
+      name="doodle-settings"
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      class=".doodle_settings.DoodleSettingsControlPanel"
+      permission="cmf.ManagePortal"
+      layer="experimental.doodle.interfaces.IBrowserLayer"
+      />
+
 </configure>

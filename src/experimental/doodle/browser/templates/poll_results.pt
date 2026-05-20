@@ -1,0 +1,92 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="experimental.doodle"
+>
+  <body>
+
+    <metal:content-core fill-slot="content-core">
+
+      <h1 class="documentFirstHeading"
+          tal:content="context/title"
+      >Poll title</h1>
+
+      <div class="documentDescription"
+           tal:content="context/description"
+      ></div>
+
+      <!-- Final result banner -->
+      <tal:final condition="view/is_final">
+        <div class="portalMessage info">
+          <strong i18n:translate="label_final_result">Final result:
+          </strong>
+          <span tal:content="view/final_slot_display">final slot</span>
+        </div>
+      </tal:final>
+
+      <!-- Leading slot banner (only when not yet finalised and votes exist) -->
+      <tal:leading condition="python: view.winning_slot_display() and not view.is_final()">
+        <div class="portalMessage info">
+          <strong i18n:translate="label_leading_slot">Currently leading:
+          </strong>
+          <span tal:content="view/winning_slot_display">winning slot</span>
+        </div>
+      </tal:leading>
+
+      <!-- Vote count summary -->
+      <p class="discreet">
+        <span i18n:translate="label_total_votes">
+          <span tal:replace="view/total_votes"
+                i18n:name="total"
+          >0</span>
+      vote(s) received
+        </span>
+      </p>
+
+      <!-- Results table -->
+      <table class="listing"
+             summary="Poll results"
+      >
+        <thead>
+          <tr>
+            <th i18n:translate="col_time_slot">Time slot</th>
+            <th i18n:translate="col_votes">Votes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr tal:repeat="row view/results"
+              tal:attributes="
+                class python: 'winner' if row['is_winner'] else '';
+              "
+          >
+            <td>
+              <tal:winner condition="row/is_winner">
+                <strong tal:content="row/display">slot</strong>
+              </tal:winner>
+              <tal:other condition="not:row/is_winner">
+                <span tal:content="row/display">slot</span>
+              </tal:other>
+            </td>
+            <td tal:content="row/count">0</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Link back to vote form when poll is still open -->
+      <tal:vote-link condition="view/is_open">
+        <p>
+          <a class="context"
+             tal:attributes="
+               href string:${context/absolute_url}/@@poll-vote;
+             "
+             i18n:translate="link_vote"
+          >Vote in this poll</a>
+        </p>
+      </tal:vote-link>
+
+    </metal:content-core>
+
+  </body>
+</html>

@@ -7,4 +7,10 @@
           name="MyType"
   />
 -->
+  <object meta_type="Dexterity FTI"
+          name="Poll"
+  />
+  <object meta_type="Dexterity FTI"
+          name="BookingPage"
+  />
 </object>

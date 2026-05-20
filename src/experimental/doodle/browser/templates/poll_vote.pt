@@ -1,0 +1,100 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="experimental.doodle"
+>
+  <body>
+
+    <metal:content-core fill-slot="content-core">
+
+      <h1 class="documentFirstHeading"
+          tal:content="context/title"
+      >Poll title</h1>
+
+      <div class="documentDescription"
+           tal:content="context/description"
+      ></div>
+
+      <tal:open condition="view/is_open">
+
+        <tal:already-voted condition="view/has_already_voted">
+          <div class="portalMessage info">
+            <p i18n:translate="msg_already_voted">
+          You have already submitted a vote for this poll.
+            </p>
+          </div>
+          <p>
+            <a tal:attributes="
+                 href string:${context/absolute_url}/@@poll-results;
+               "
+               i18n:translate="link_view_results"
+            >View current results</a>
+          </p>
+        </tal:already-voted>
+
+        <tal:not-voted condition="not:view/has_already_voted">
+          <form method="post"
+                tal:attributes="
+                  action string:${context/absolute_url}/@@poll-vote;
+                "
+          >
+            <input name="_authenticator"
+                   type="hidden"
+                   tal:attributes="
+                     value context/@@authenticator/authenticator;
+                   "
+            />
+
+            <fieldset>
+              <legend i18n:translate="legend_select_slots">
+            Select the times that work for you
+              </legend>
+
+              <div class="field"
+                   tal:repeat="slot view/proposed_slots_info"
+              >
+                <label>
+                  <input name="chosen_slots:list"
+                         type="checkbox"
+                         tal:attributes="
+                           value slot/value;
+                         "
+                  />
+                  <span tal:content="slot/display">Slot display</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <div class="formControls">
+              <input class="context"
+                     type="submit"
+                     value="Submit vote"
+                     i18n:attributes="value btn_submit_vote"
+              />
+            </div>
+          </form>
+        </tal:not-voted>
+
+      </tal:open>
+
+      <tal:closed condition="not:view/is_open">
+        <div class="portalMessage warning">
+          <p i18n:translate="msg_poll_closed">
+        This poll is closed for voting.
+          </p>
+        </div>
+        <p>
+          <a tal:attributes="
+               href string:${context/absolute_url}/@@poll-results;
+             "
+             i18n:translate="link_view_results"
+          >View results</a>
+        </p>
+      </tal:closed>
+
+    </metal:content-core>
+
+  </body>
+</html>

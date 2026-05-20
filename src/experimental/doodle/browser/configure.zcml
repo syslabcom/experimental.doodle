@@ -22,4 +22,44 @@
       type="plone"
       />
 
+  <!-- Poll views -->
+  <browser:page
+      name="poll-vote"
+      for="experimental.doodle.content.poll.IPoll"
+      class=".poll_views.PollVoteView"
+      template="templates/poll_vote.pt"
+      permission="zope2.View"
+      layer="experimental.doodle.interfaces.IBrowserLayer"
+      />
+
+  <browser:page
+      name="poll-results"
+      for="experimental.doodle.content.poll.IPoll"
+      class=".poll_views.PollResultsView"
+      template="templates/poll_results.pt"
+      permission="zope2.View"
+      layer="experimental.doodle.interfaces.IBrowserLayer"
+      />
+
+  <!-- Booking Page views -->
+  <browser:page
+      name="booking-page"
+      for="experimental.doodle.content.booking_page.IBookingPage"
+      class=".booking_views.BookingPageView"
+      template="templates/booking_page.pt"
+      permission="zope2.View"
+      layer="experimental.doodle.interfaces.IBrowserLayer"
+      />
+
+  <!-- Home page: open polls section viewlet -->
+  <browser:viewlet
+      name="experimental.doodle.open_polls"
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      manager="plone.app.layout.viewlets.interfaces.IBelowContentBody"
+      class=".home_viewlets.OpenPollsViewlet"
+      template="templates/open_polls_section.pt"
+      permission="zope2.View"
+      layer="experimental.doodle.interfaces.IBrowserLayer"
+      />
+
 </configure>

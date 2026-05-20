@@ -5,4 +5,23 @@
 
   <!-- -*- extra stuff goes here -*- -->
 
+  <!-- Add Poll and BookingPage to the navigation displayed types -->
+  <record interface="plone.app.layout.navigation.interfaces.INavigationSchema"
+          field="displayed_types">
+    <value purge="false">
+      <element>Poll</element>
+      <element>BookingPage</element>
+    </value>
+  </record>
+
+  <records interface="experimental.doodle.controlpanels.doodle_settings.IDoodleSettings"
+           prefix="experimental.doodle"
+  >
+    <value key="default_poll_slot_duration">30</value>
+    <value key="default_booking_slot_duration">30</value>
+    <value key="allow_anonymous_voting">False</value>
+    <value key="require_booking_confirmation">False</value>
+    <value key="default_timezone">UTC</value>
+  </records>
+
 </registry>
