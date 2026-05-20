@@ -64,4 +64,5 @@ def build_results(context):
             "count": info["count"],
             "names": info["names"],
         })
+    rows.sort(key=lambda row: (-row["count"], row["iso"]))
     return rows

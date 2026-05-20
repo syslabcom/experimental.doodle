@@ -49,6 +49,22 @@ def is_doodle_manager(context):
     return creator == member.getId()
 
 
+def merge_proposed_dates(context, new_dates):
+    """Add proposed dates to candidate_dates and return the merged list."""
+    if not new_dates:
+        return list(context.candidate_dates or [])
+    existing = {
+        value.isoformat() if isinstance(value, date) else value
+        for value in (context.candidate_dates or [])
+    }
+    for value in new_dates:
+        existing.add(value.isoformat() if isinstance(value, date) else value)
+    merged = [date.fromisoformat(iso) for iso in sorted(existing)]
+    with api.env.adopt_roles(["Manager"]):
+        context.candidate_dates = merged
+    return merged
+
+
 def parse_iso_dates(values):
     """Parse and deduplicate ISO date strings from form input."""
     if not values:

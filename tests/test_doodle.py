@@ -65,9 +65,10 @@ class TestDoodleContent:
         assert answer["selected_dates"] == ["2026-05-22"]
 
         rows = build_results(obj)
-        assert rows[0]["count"] == 1
-        assert rows[0]["names"] == ["Member Two"]
-        assert rows[1]["count"] == 2
+        assert rows[0]["count"] == 2
+        assert rows[0]["names"] == ["Member One", "Member Two"]
+        assert rows[1]["count"] == 1
+        assert rows[1]["names"] == ["Member Two"]
 
 
 class TestDoodleViews:
@@ -139,3 +140,91 @@ class TestDoodleViews:
 
         assert "View results" in html
         assert "Share this link" not in html
+
+    def test_proposed_dates_ignored_when_disabled(self, portal, http_request):
+        obj = _create_doodle(portal)
+        login(portal, TEST_USER_NAME)
+        request = _prepare_request(http_request)
+        request.method = "POST"
+        request.form["form.submitted"] = "1"
+        request.form["proposed_dates"] = ["2026-05-25"]
+        request.form["selected_dates"] = ["2026-05-20"]
+
+        AnswerView(obj, request)()
+
+        assert [value.isoformat() for value in obj.candidate_dates] == [
+            "2026-05-20",
+            "2026-05-22",
+        ]
+        answer = get_answer_for_user(obj, TEST_USER_ID)
+        assert answer["selected_dates"] == ["2026-05-20"]
+
+    def test_member_can_propose_dates_when_allowed(self, portal, http_request):
+        obj = _create_doodle(portal)
+        obj.allow_members_propose_dates = True
+        login(portal, TEST_USER_NAME)
+        request = _prepare_request(http_request)
+        request.method = "POST"
+        request.form["form.submitted"] = "1"
+        request.form["proposed_dates"] = ["2026-05-25", "2026-05-26"]
+        request.form["selected_dates"] = ["2026-05-20"]
+
+        AnswerView(obj, request)()
+
+        assert [value.isoformat() for value in obj.candidate_dates] == [
+            "2026-05-20",
+            "2026-05-22",
+            "2026-05-25",
+            "2026-05-26",
+        ]
+        answer = get_answer_for_user(obj, TEST_USER_ID)
+        assert answer["selected_dates"] == [
+            "2026-05-20",
+            "2026-05-25",
+            "2026-05-26",
+        ]
+
+    def test_proposing_existing_date_selects_it(self, portal, http_request):
+        obj = _create_doodle(portal)
+        obj.allow_members_propose_dates = True
+        login(portal, TEST_USER_NAME)
+        request = _prepare_request(http_request)
+        request.method = "POST"
+        request.form["form.submitted"] = "1"
+        request.form["proposed_dates"] = ["2026-05-22"]
+        request.form["selected_dates"] = []
+
+        AnswerView(obj, request)()
+
+        assert [value.isoformat() for value in obj.candidate_dates] == [
+            "2026-05-20",
+            "2026-05-22",
+        ]
+        answer = get_answer_for_user(obj, TEST_USER_ID)
+        assert answer["selected_dates"] == ["2026-05-22"]
+
+    def test_propose_section_hidden_when_disabled(self, portal, http_request):
+        obj = _create_doodle(portal)
+        login(portal, TEST_USER_NAME)
+        request = _prepare_request(http_request)
+        request.method = "GET"
+
+        html = AnswerView(obj, request)()
+
+        assert "Propose new dates" not in html
+
+    def test_propose_section_visible_when_enabled(self, portal, http_request):
+        obj = _create_doodle(portal)
+        obj.allow_members_propose_dates = True
+        login(portal, TEST_USER_NAME)
+        request = _prepare_request(http_request)
+        request.method = "GET"
+
+        html = AnswerView(obj, request)()
+
+        assert "Propose new dates" in html
+        assert 'name="proposed_dates"' in html
+        assert "doodle-propose-date-template" in html
+        assert "doodle-propose-remove" in html
+        assert "Add another date" in html
+        assert "doodle.js" in html

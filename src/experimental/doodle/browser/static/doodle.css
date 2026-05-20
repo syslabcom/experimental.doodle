@@ -183,6 +183,50 @@
   border-top: 1px solid #eee;
 }
 
+.doodle-propose-fieldset {
+  margin-top: var(--doodle-space-lg);
+  padding-top: var(--doodle-space-lg);
+  border-top: 1px solid #eee;
+}
+
+.doodle-propose-hint {
+  margin: 0 0 var(--doodle-space-md);
+  color: #6c757d;
+  font-size: 0.9375rem;
+}
+
+.doodle-propose-dates {
+  display: flex;
+  flex-direction: column;
+  gap: var(--doodle-space-sm);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.doodle-propose-dates > li {
+  margin: 0;
+  padding: 0;
+}
+
+.doodle-propose-row {
+  display: flex;
+  align-items: center;
+  gap: var(--doodle-space-sm);
+}
+
+.doodle-propose-date {
+  width: 100%;
+  max-width: 16rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #dee2e6;
+  border-radius: 0.25rem;
+}
+
+.doodle-propose-add {
+  margin-top: var(--doodle-space-md);
+}
+
 .doodle-form-controls {
   margin-top: var(--doodle-space-lg);
   padding-top: var(--doodle-space-md);

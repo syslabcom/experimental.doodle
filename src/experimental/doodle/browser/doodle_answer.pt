@@ -100,6 +100,38 @@
               </ul>
             </fieldset>
 
+            <fieldset class="doodle-propose-fieldset doodle-fieldset"
+                      tal:condition="view/allow_propose_dates"
+            >
+              <legend i18n:translate="">Propose new dates</legend>
+              <p class="doodle-propose-hint"
+                 i18n:translate=""
+              >
+                Add dates that work for you. They become options for everyone.
+              </p>
+              <ul class="doodle-propose-dates"></ul>
+              <template id="doodle-propose-date-template">
+                <li class="doodle-propose-row">
+                  <input class="doodle-propose-date"
+                         name="proposed_dates"
+                         type="date"
+                  />
+                  <button class="btn btn-outline-danger btn-sm doodle-propose-remove"
+                          type="button"
+                          i18n:translate=""
+                  >Remove</button>
+                </li>
+              </template>
+              <button class="btn btn-secondary btn-sm doodle-propose-add"
+                      id="doodle-propose-add"
+                      type="button"
+                      i18n:translate=""
+              >Add another date</button>
+              <script tal:attributes="
+                        src string:${context/portal_url}/++resource++experimental.doodle/doodle.js;
+                      "></script>
+            </fieldset>
+
             <div class="doodle-form-footer">
               <button class="btn btn-primary"
                       type="submit"

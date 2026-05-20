@@ -8,6 +8,7 @@ from experimental.doodle.utils import format_date
 from experimental.doodle.utils import format_date_long
 from experimental.doodle.utils import get_member_info
 from experimental.doodle.utils import is_doodle_manager
+from experimental.doodle.utils import merge_proposed_dates
 from experimental.doodle.utils import parse_iso_dates
 from experimental.doodle.utils import require_authenticated
 from Products.Five import BrowserView
@@ -35,6 +36,9 @@ class AnswerView(BrowserView):
         )
         self.is_creator = is_doodle_manager(self.context)
         self.can_view_results = can_view_results(self.context)
+        self.allow_propose_dates = getattr(
+            self.context, "allow_members_propose_dates", False
+        )
         self.results_url = f"{self.context.absolute_url()}/@@results"
 
         if self.request.method != "POST":
@@ -42,7 +46,22 @@ class AnswerView(BrowserView):
         if not self.request.form.get("form.submitted"):
             return
 
+        proposed_dates = (
+            parse_iso_dates(self.request.form.get("proposed_dates"))
+            if self.allow_propose_dates
+            else []
+        )
         selected_dates = parse_iso_dates(self.request.form.get("selected_dates"))
+        if proposed_dates:
+            merge_proposed_dates(self.context, proposed_dates)
+            self.candidate_dates = list(self.context.candidate_dates or [])
+            selected_isos = {value.isoformat() for value in selected_dates}
+            for value in proposed_dates:
+                iso = value.isoformat()
+                if iso not in selected_isos:
+                    selected_dates.append(value)
+                    selected_isos.add(iso)
+
         valid = {candidate.isoformat() for candidate in self.candidate_dates}
         if not selected_dates:
             IStatusMessage(self.request).add(

@@ -29,3 +29,13 @@ class IDoodle(model.Schema):
         required=False,
         default=False,
     )
+
+    allow_members_propose_dates = schema.Bool(
+        title=_("Allow participants to propose dates"),
+        description=_(
+            "When enabled, members can suggest additional dates on the answer page. "
+            "New dates are added for everyone."
+        ),
+        required=False,
+        default=False,
+    )
