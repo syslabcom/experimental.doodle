@@ -39,6 +39,8 @@ You can browse the Plone site at `http://localhost:8080` with the following cred
 - Username: `admin`
 - Password: `admin`
 
+Create a Classic UI Plone site and install the Doodle add-on.
+
 To run the tests, use the following command:
 
 ```shell
