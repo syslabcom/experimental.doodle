@@ -120,5 +120,3 @@ class TestPollCreate:
 
         assert isinstance(poll, Poll)
         assert IPoll.providedBy(poll)
-
-
