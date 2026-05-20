@@ -24,3 +24,19 @@ class IExperimentalDoodleFolder(model.Schema):
         title="Body",
         required=False,
     )
+
+
+class IExperimentalDoodleDate(model.Schema):
+    """Single date option inside a Doodle folder (MVP)"""
+
+    date = schema.Date(
+        title="Date",
+        required=True,
+    )
+
+    participants = schema.Set(
+        title="Participants",
+        description="User ids who selected this date.",
+        value_type=schema.TextLine(),
+        required=False,
+    )

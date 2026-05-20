@@ -5,4 +5,7 @@
   <object meta_type="Dexterity FTI"
           name="experimental.doodle.folder"
   />
+  <object meta_type="Dexterity FTI"
+          name="experimental.doodle.date"
+  />
 </object>

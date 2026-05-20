@@ -5,4 +5,9 @@
       title="experimental.doodle: Add Doodle Folder"
       />
 
+  <permission
+      id="experimental.doodle.AddDoodleDate"
+      title="experimental.doodle: Add Doodle Date"
+      />
+
 </configure>
