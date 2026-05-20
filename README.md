@@ -30,6 +30,7 @@ TODO: replace doodle.
 
 ```shell
 $ git clone git@github.com:syslabcom/experimental.doodle.git
+$ cd experimental.doodle
 $ make start
 ```
 
