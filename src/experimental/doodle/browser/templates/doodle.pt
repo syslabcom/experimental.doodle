@@ -1,0 +1,70 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+>
+  <body>
+    <metal:content-core fill-slot="content-core">
+      <section class="doodle-view card shadow-sm border-0">
+        <div class="card-body p-3 p-md-4">
+          <h2 class="h4 mb-2">Doodle</h2>
+          <p class="text-muted mb-4">Pick the dates that work for you and compare availability at a glance.</p>
+          <div class="table-responsive"
+               tal:condition="view/rows"
+          >
+            <table class="listing table table-striped table-hover align-middle mb-0">
+              <thead>
+                <tr>
+                  <th scope="col">Date</th>
+                  <th scope="col">Option</th>
+                  <th scope="col">Participants</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr tal:repeat="row view/rows">
+                  <td class="doodle-date"
+                      tal:content="python:view.date_label(row['date'])"
+                  >2026-01-01</td>
+                  <td class="fw-semibold"
+                      tal:content="row/title"
+                  >Date option</td>
+                  <td>
+                    <span class="text-muted"
+                          tal:condition="python:not row['participants']"
+                    >No participants yet</span>
+                    <span tal:repeat="member row/participants"
+                          tal:content="member"
+                          tal:attributes="
+                            class python:'badge rounded-pill text-bg-success' if row['selected'] and member == user.getId() else 'badge rounded-pill text-bg-light';
+                          "
+                    >member</span>
+                  </td>
+                  <td>
+                    <form method="post"
+                          tal:condition="row/can_toggle"
+                          tal:attributes="
+                            action row/toggle_url;
+                          "
+                    >
+                      <button type="submit"
+                              tal:content="python:'Unselect' if row['selected'] else 'Select'"
+                              tal:attributes="
+                                class python:'btn btn-sm btn-outline-secondary' if row['selected'] else 'btn btn-sm btn-primary';
+                              "
+                      >Select</button>
+                    </form>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="text-muted mt-3 mb-0"
+             tal:condition="python:not view.rows()"
+          >No date options yet.</p>
+        </div>
+      </section>
+    </metal:content-core>
+  </body>
+</html>

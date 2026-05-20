@@ -1,5 +1,13 @@
 <configure xmlns="http://namespaces.zope.org/zope">
 
-  <!-- -*- extra stuff goes here -*- -->
+  <permission
+      id="experimental.doodle.AddDoodleFolder"
+      title="experimental.doodle: Add Doodle Folder"
+      />
+
+  <permission
+      id="experimental.doodle.AddDoodleDate"
+      title="experimental.doodle: Add Doodle Date"
+      />
 
 </configure>

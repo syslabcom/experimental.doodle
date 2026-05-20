@@ -1,0 +1,16 @@
+.doodle-date {
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.doodle-view {
+  border-radius: 0.5rem;
+}
+
+.doodle-view td .badge {
+  margin-right: 0.25rem;
+}
+
+.doodle-view button.btn {
+  white-space: nowrap;
+}

@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rolemap>
   <permissions>
-    <!-- -*- extra stuff goes here -*- -->
+    <permission acquire="True"
+                name="experimental.doodle: Add Doodle Folder"
+    >
+      <role name="Manager" />
+      <role name="Site Administrator" />
+      <role name="Owner" />
+      <role name="Contributor" />
+    </permission>
+    <permission acquire="True"
+                name="experimental.doodle: Add Doodle Date"
+    >
+      <role name="Manager" />
+      <role name="Site Administrator" />
+      <role name="Owner" />
+      <role name="Contributor" />
+    </permission>
   </permissions>
 </rolemap>

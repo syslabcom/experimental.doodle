@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<object xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+        meta_type="Dexterity FTI"
+        name="experimental.doodle.date"
+        i18n:domain="experimental.doodle"
+>
+  <property name="title"
+            i18n:translate=""
+  >Doodle Date</property>
+  <property name="description"
+            i18n:translate=""
+  >Single date option in a doodle folder.</property>
+  <property name="icon_expr">string:contenttype/event</property>
+  <property name="factory">experimental.doodle.date</property>
+  <property name="add_view_expr">string:${folder_url}/++add++experimental.doodle.date</property>
+  <property name="link_target" />
+  <property name="immediate_view">view</property>
+  <property name="global_allow">False</property>
+  <property name="filter_content_types">False</property>
+  <property name="allowed_content_types" />
+  <property name="allow_discussion">False</property>
+  <property name="default_view">view</property>
+  <property name="view_methods">
+    <element value="view" />
+  </property>
+  <property name="default_view_fallback">False</property>
+  <property name="add_permission">experimental.doodle.AddDoodleDate</property>
+  <property name="klass">experimental.doodle.content.date.ExperimentalDoodleDate</property>
+  <property name="schema">experimental.doodle.interfaces.IExperimentalDoodleDate</property>
+  <property name="model_source" />
+  <property name="model_file" />
+  <property name="behaviors">
+    <element value="plone.namefromtitle" />
+    <element value="plone.basic" />
+  </property>
+  <alias from="(Default)"
+         to="(dynamic view)"
+  />
+  <alias from="edit"
+         to="@@edit"
+  />
+  <alias from="sharing"
+         to="@@sharing"
+  />
+  <alias from="view"
+         to="(selected layout)"
+  />
+  <action action_id="view"
+          category="object"
+          condition_expr=""
+          title="View"
+          url_expr="string:${object_url}"
+          visible="True"
+  >
+    <permission value="View" />
+  </action>
+  <action action_id="edit"
+          category="object"
+          condition_expr=""
+          title="Edit"
+          url_expr="string:${object_url}/edit"
+          visible="True"
+  >
+    <permission value="Modify portal content" />
+  </action>
+</object>

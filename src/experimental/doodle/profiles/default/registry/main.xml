@@ -3,6 +3,21 @@
           i18n:domain="experimental.doodle"
 >
 
-  <!-- -*- extra stuff goes here -*- -->
+  <records interface="plone.base.interfaces.IResourceRegistry"
+           prefix="plone.resources/experimental-doodle-style"
+  >
+    <value key="css">++plone++experimental.doodle/doodle.css</value>
+  </records>
+
+  <records interface="plone.base.interfaces.IBundleRegistry"
+           prefix="plone.bundles/experimental-doodle-style"
+  >
+    <value key="enabled">True</value>
+    <value key="csscompilation">++plone++experimental.doodle/doodle.css</value>
+    <value key="load_async">False</value>
+    <value key="load_defer">False</value>
+    <value key="compile">False</value>
+    <value key="depends">plone</value>
+  </records>
 
 </registry>
