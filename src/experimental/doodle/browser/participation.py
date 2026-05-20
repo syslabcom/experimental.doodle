@@ -19,7 +19,10 @@ class ToggleParticipationView(BrowserView):
         if not userid:
             raise Unauthorized("Login required")
 
-        values = set(getattr(self.context, "participants", set()) or set())
+        values = getattr(self.context, "participants", None)
+        if values is None:
+            values = getattr(self.context, "participants", set())
+        values = set(values or set())
         if userid in values:
             values.remove(userid)
         else:

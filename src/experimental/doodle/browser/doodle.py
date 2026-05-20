@@ -25,7 +25,10 @@ class DoodleView(BrowserView):
         rows = []
         for item in sorted(items, key=sort_key):
             when = getattr(item, "date", None)
-            participants = sorted(getattr(item, "participants", set()) or set())
+            values = getattr(item, "participants", None)
+            if values is None:
+                values = getattr(item, "participants", set())
+            participants = sorted(values or set())
             rows.append(
                 {
                     "title": item.Title(),
