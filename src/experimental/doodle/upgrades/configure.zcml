@@ -1,20 +1,17 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="experimental.doodle"
     >
 
-  <!-- Example upgrade step
-  <genericsetup:upgradeSteps
+  <genericsetup:upgradeStep
+      title="Install Poll content type"
+      description="Register the Poll Dexterity FTI on existing sites."
       profile="experimental.doodle:default"
       source="1000"
       destination="1001"
-      >
-    <genericsetup:upgradeDepends
-        title="Update registry value"
-        import_steps="plone.app.registry"
-        />
-  </genericsetup:upgradeSteps>
-  -->
+      handler="experimental.doodle.upgrades.v1001.install_poll_type"
+      />
 
   <!-- -*- extra stuff goes here -*- -->
 
