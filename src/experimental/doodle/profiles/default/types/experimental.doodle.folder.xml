@@ -24,7 +24,7 @@
     <element value="view" />
   </property>
   <property name="default_view_fallback">False</property>
-  <property name="add_permission">cmf.AddPortalContent</property>
+  <property name="add_permission">experimental.doodle.AddDoodleFolder</property>
   <property name="klass">experimental.doodle.content.folder.ExperimentalDoodleFolder</property>
   <property name="schema">experimental.doodle.interfaces.IExperimentalDoodleFolder</property>
   <property name="model_source" />

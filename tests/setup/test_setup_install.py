@@ -19,3 +19,8 @@ class TestSetupInstall:
     def test_folder_type_installed(self, portal):
         """Test folder content type is registered."""
         assert "experimental.doodle.folder" in portal.portal_types
+
+    def test_folder_type_add_permission(self, portal):
+        """Test folder content type uses custom add permission."""
+        fti = portal.portal_types["experimental.doodle.folder"]
+        assert fti.add_permission == "experimental.doodle.AddDoodleFolder"
