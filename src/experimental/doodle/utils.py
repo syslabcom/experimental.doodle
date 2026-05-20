@@ -29,6 +29,23 @@ def can_view_results(context):
     if member.has_role("Manager"):
         return True
     creator = getattr(context, "Creator", lambda: None)()
+    if creator == member.getId():
+        return True
+    if getattr(context, "allow_members_view_results", False):
+        return True
+    return False
+
+
+def is_doodle_manager(context):
+    """True if the current user may manage doodle settings (creator UI)."""
+    if api.user.is_anonymous():
+        return False
+    member = api.user.get_current()
+    if member is None:
+        return False
+    if member.has_role("Manager"):
+        return True
+    creator = getattr(context, "Creator", lambda: None)()
     return creator == member.getId()
 
 

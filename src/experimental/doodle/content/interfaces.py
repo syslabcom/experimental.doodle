@@ -19,3 +19,13 @@ class IDoodle(model.Schema):
         required=True,
         min_length=1,
     )
+
+    allow_members_view_results = schema.Bool(
+        title=_("Allow participants to view results"),
+        description=_(
+            "When enabled, any logged-in member who can view this doodle "
+            "may also open the results page."
+        ),
+        required=False,
+        default=False,
+    )

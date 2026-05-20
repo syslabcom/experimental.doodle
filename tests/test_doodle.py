@@ -115,3 +115,27 @@ class TestDoodleViews:
         view = ResultsView(obj, request)
         with pytest.raises(Unauthorized):
             view.update()
+
+    def test_member_can_view_results_when_allowed(self, portal, http_request):
+        obj = _create_doodle(portal)
+        obj.allow_members_view_results = True
+        upsert_answer(obj, "member", "Member", [date(2026, 5, 20)])
+        login(portal, TEST_USER_NAME)
+        request = _prepare_request(http_request)
+
+        html = ResultsView(obj, request)()
+
+        assert "Who can make it" in html
+        assert "Member" in html
+
+    def test_member_sees_results_link_when_allowed(self, portal, http_request):
+        obj = _create_doodle(portal)
+        obj.allow_members_view_results = True
+        login(portal, TEST_USER_NAME)
+        request = _prepare_request(http_request)
+        request.method = "GET"
+
+        html = AnswerView(obj, request)()
+
+        assert "View results" in html
+        assert "Share this link" not in html

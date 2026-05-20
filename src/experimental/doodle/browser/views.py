@@ -7,6 +7,7 @@ from experimental.doodle.utils import can_view_results
 from experimental.doodle.utils import format_date
 from experimental.doodle.utils import format_date_long
 from experimental.doodle.utils import get_member_info
+from experimental.doodle.utils import is_doodle_manager
 from experimental.doodle.utils import parse_iso_dates
 from experimental.doodle.utils import require_authenticated
 from Products.Five import BrowserView
@@ -32,7 +33,8 @@ class AnswerView(BrowserView):
         self.selected = (
             set(self.existing.get("selected_dates", [])) if self.existing else set()
         )
-        self.is_creator = can_view_results(self.context)
+        self.is_creator = is_doodle_manager(self.context)
+        self.can_view_results = can_view_results(self.context)
         self.results_url = f"{self.context.absolute_url()}/@@results"
 
         if self.request.method != "POST":
@@ -73,7 +75,7 @@ class AnswerView(BrowserView):
 
 
 class ResultsView(BrowserView):
-    """Creator-only summary of all answers."""
+    """Summary of all answers for users allowed to view results."""
 
     index = ViewPageTemplateFile("doodle_results.pt")
 

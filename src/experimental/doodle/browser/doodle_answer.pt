@@ -25,7 +25,7 @@
               </p>
             </div>
             <div class="doodle-header-actions"
-                 tal:condition="view/is_creator"
+                 tal:condition="view/can_view_results"
             >
               <a class="btn btn-secondary btn-sm"
                  tal:attributes="
