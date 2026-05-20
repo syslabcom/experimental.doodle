@@ -33,6 +33,18 @@ $ git clone git@github.com:syslabcom/experimental.doodle.git
 $ make start
 ```
 
+
+## Plonex instructions
+
+You need the latest source version of `plonex` for this to work,
+
+```shell
+$ plonex dependencies
+$ plonex supervisor start
+$ plonex adduser admin admin
+$ plonex runwsgi
+```
+
 ## Installation
 
 Install experimental.doodle with `pip`:

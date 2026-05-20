@@ -23,7 +23,6 @@ node_modules/
 bin/
 develop-eggs/
 eggs/
-etc/
 include/
 lib/
 lib64
@@ -41,5 +40,6 @@ var/
 /reports/
 /sources/
 /venv/
+/tmp/
 constraints*.txt
 requirements*.txt
