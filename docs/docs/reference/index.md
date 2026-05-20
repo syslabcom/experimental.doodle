@@ -20,4 +20,7 @@ https://diataxis.fr/reference/
 
 ## Configuration
 
+-   {doc}`doodle-requirements`
+-   {doc}`doodle-fr`
+-   {doc}`doodle-planning`
 -   {doc}`plone:contributing/documentation/themes-and-extensions`

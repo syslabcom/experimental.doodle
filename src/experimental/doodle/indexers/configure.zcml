@@ -2,6 +2,8 @@
 
   <!-- Indexers/Metadata -->
 
-  <!-- -*- extra stuff goes here -*- -->
+  <adapter factory=".poll_state_indexer"
+           name="poll_state"
+           />
 
 </configure>

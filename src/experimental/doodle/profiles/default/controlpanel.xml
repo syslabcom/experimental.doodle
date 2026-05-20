@@ -5,4 +5,18 @@
 
   <!-- -*- extra stuff goes here -*- -->
 
+  <configlet action_id="doodle-settings"
+             appId="doodle-settings"
+             category="Products"
+             condition_expr=""
+             icon_expr=""
+             title="Doodle Settings"
+             url_expr="string:${portal_url}/@@doodle-settings"
+             visible="True"
+             i18n:attributes="title"
+             i18n:domain="experimental.doodle"
+  >
+    <permission>Manage portal</permission>
+  </configlet>
+
 </object>

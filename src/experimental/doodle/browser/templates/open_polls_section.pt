@@ -1,0 +1,30 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      i18n:domain="experimental.doodle"
+>
+  <body>
+
+    <tal:polls define="polls view/open_polls">
+      <section class="open-polls-section"
+               tal:condition="polls"
+      >
+        <h2 i18n:translate="heading_open_polls">Open Polls</h2>
+
+        <ul class="open-polls-list">
+          <li tal:repeat="poll polls">
+            <a tal:attributes="href poll/url"
+               tal:content="poll/title"
+            >Poll title</a>
+            <p class="discreet"
+               tal:condition="poll/description"
+               tal:content="poll/description"
+            >Poll description</p>
+          </li>
+        </ul>
+      </section>
+    </tal:polls>
+
+  </body>
+</html>

@@ -1,0 +1,131 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="experimental.doodle"
+>
+  <body>
+
+    <metal:content-core fill-slot="content-core">
+
+      <h1 class="documentFirstHeading"
+          tal:content="context/title"
+      >Booking Page title</h1>
+
+      <div class="documentDescription"
+           tal:content="context/description"
+      ></div>
+
+      <p tal:condition="context/organizer">
+        <strong i18n:translate="label_organizer">Organizer:</strong>
+        <span tal:content="context/organizer">Organizer name</span>
+      </p>
+
+      <!-- section -->
+      <!-- Open state: date picker + slot list                                  -->
+      <!-- section -->
+
+      <tal:open condition="view/is_open">
+
+        <form method="get"
+              tal:attributes="
+                action string:${context/absolute_url}/@@booking-page;
+              "
+        >
+          <div class="field">
+            <label for="date-picker"
+                   i18n:translate="label_select_date"
+            >Select date</label>
+            <input id="date-picker"
+                   name="date"
+                   type="date"
+                   tal:attributes="
+                     value view/selected_date_str;
+                   "
+            />
+            <input class="standalone"
+                   type="submit"
+                   value="Show slots"
+                   i18n:attributes="value btn_show_slots"
+            />
+          </div>
+        </form>
+
+        <tal:has-slots condition="view/available_slots_info">
+
+          <form method="post"
+                tal:attributes="
+                  action string:${context/absolute_url}/@@booking-page;
+                "
+          >
+            <input name="_authenticator"
+                   type="hidden"
+                   tal:attributes="
+                     value context/@@authenticator/authenticator;
+                   "
+            />
+            <input name="date"
+                   type="hidden"
+                   tal:attributes="
+                     value view/selected_date_str;
+                   "
+            />
+
+            <fieldset>
+              <legend i18n:translate="legend_available_slots">
+            Available slots
+              </legend>
+
+              <div class="field"
+                   tal:repeat="slot view/available_slots_info"
+              >
+                <label>
+                  <input name="slot"
+                         type="radio"
+                         tal:attributes="
+                           value slot/value;
+                         "
+                  />
+                  <span tal:content="slot/display">Slot display</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <div class="formControls">
+              <input class="context"
+                     type="submit"
+                     value="Book this slot"
+                     i18n:attributes="value btn_book_slot"
+              />
+            </div>
+          </form>
+
+        </tal:has-slots>
+
+        <tal:no-slots condition="not:view/available_slots_info">
+          <div class="portalMessage info">
+            <p i18n:translate="msg_no_slots_available">
+          No bookable slots are available for this date.
+            </p>
+          </div>
+        </tal:no-slots>
+
+      </tal:open>
+
+      <!-- section -->
+      <!-- Closed state                                                          -->
+      <!-- section -->
+
+      <tal:closed condition="not:view/is_open">
+        <div class="portalMessage warning">
+          <p i18n:translate="msg_booking_page_closed">
+        This booking page is not accepting new bookings.
+          </p>
+        </div>
+      </tal:closed>
+
+    </metal:content-core>
+
+  </body>
+</html>
