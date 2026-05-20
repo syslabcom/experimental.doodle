@@ -22,4 +22,14 @@
       type="plone"
       />
 
+  <browser:page
+      name="doodle"
+      for="experimental.doodle.interfaces.IExperimentalDoodleFolder"
+      class=".doodle.DoodleView"
+      template="templates/doodle.pt"
+      permission="zope2.View"
+      layer="experimental.doodle.interfaces.IBrowserLayer"
+      />
+
+
 </configure>

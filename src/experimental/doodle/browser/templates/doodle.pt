@@ -1,0 +1,39 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+>
+  <body>
+    <metal:content-core fill-slot="content-core">
+      <h1>Doodle</h1>
+      <table class="listing"
+             tal:condition="view/rows"
+      >
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Option</th>
+            <th>Participants</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr tal:repeat="row view/rows">
+            <td tal:content="python:view.date_label(row['date'])">2026-01-01 10:00</td>
+            <td tal:content="row/title">Date option</td>
+            <td>
+              <span tal:condition="python:not row['participants']">No participants yet</span>
+              <span tal:repeat="member row/participants"
+                    tal:content="member"
+                    tal:attributes="
+                      class string:label;
+                    "
+              >member</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p tal:condition="python:not view.rows()">No date options yet.</p>
+    </metal:content-core>
+  </body>
+</html>
