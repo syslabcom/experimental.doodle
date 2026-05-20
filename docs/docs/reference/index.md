@@ -26,6 +26,14 @@ https://diataxis.fr/reference/
 poll-content-type
 ```
 
+## Adapters
+
+```{toctree}
+:maxdepth: 1
+
+vote-storage
+```
+
 ## Configuration
 
 -   {doc}`plone:contributing/documentation/themes-and-extensions`

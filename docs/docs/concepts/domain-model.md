@@ -48,10 +48,9 @@ A **vote** is one participant's response to a poll. It contains a `yes` or
 `no` choice for each option. The current version intentionally omits a
 `maybe` value.
 
-```{note}
-Votes and the vote-casting API arrive in a later step. This page describes
-the target model; the `Poll` content type is the first piece in place.
-```
+Votes are stored through the {doc}`vote-storage adapter
+</reference/vote-storage>`, an annotation-backed Python API on each Poll.
+HTTP endpoints and a vote form arrive in later steps.
 
 ## Tally
 

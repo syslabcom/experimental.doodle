@@ -41,9 +41,16 @@ class TestAdapterLookup:
         storage = IVoteStorage(poll)
         assert isinstance(storage, VoteStorage)
 
-    def test_adapter_uses_annotation_key(self, poll):
-        IVoteStorage(poll)  # triggers annotation initialization
+    def test_adapter_creates_annotation_on_first_write(self, poll):
+        """The annotation must not be created until a vote is actually cast.
+
+        Creating it on read would cause a database write during GET
+        requests and trigger Plone's CSRF check.
+        """
         annotations = IAnnotations(poll)
+        assert ANNOTATION_KEY not in annotations
+
+        IVoteStorage(poll).cast_vote("Alice", [True, True, True])
         assert ANNOTATION_KEY in annotations
 
 

@@ -12,6 +12,10 @@ from zope.interface import implementer
 
 ANNOTATION_KEY = "experimental.doodle.votes"
 
+# Immutable empty mapping returned for polls that have no votes yet.
+# Using a module-level singleton means no object is created per request.
+_EMPTY: PersistentMapping = PersistentMapping()
+
 
 @implementer(IVoteStorage)
 @adapter(IPoll)
@@ -20,10 +24,24 @@ class VoteStorage:
 
     def __init__(self, context):
         self.context = context
-        annotations = IAnnotations(context)
+
+    @property
+    def _votes(self) -> PersistentMapping:
+        """Return the persistent vote mapping, creating it only on first write.
+
+        Accessing the annotation on read without creating it avoids a
+        database write during GET requests, which would trigger Plone's
+        CSRF check.
+        """
+        annotations = IAnnotations(self.context)
+        return annotations.get(ANNOTATION_KEY, _EMPTY)
+
+    def _writable_votes(self) -> PersistentMapping:
+        """Return the persistent vote mapping, creating it if absent."""
+        annotations = IAnnotations(self.context)
         if ANNOTATION_KEY not in annotations:
             annotations[ANNOTATION_KEY] = PersistentMapping()
-        self._votes: PersistentMapping = annotations[ANNOTATION_KEY]
+        return annotations[ANNOTATION_KEY]
 
     # ----- helpers -----------------------------------------------------
 
@@ -50,7 +68,7 @@ class VoteStorage:
             raise ValueError(
                 f"Expected {expected} votes (one per option), got {len(votes_list)}."
             )
-        self._votes[cleaned] = PersistentList(bool(v) for v in votes_list)
+        self._writable_votes()[cleaned] = PersistentList(bool(v) for v in votes_list)
 
     def get_vote(self, name: str) -> list[bool] | None:
         cleaned = self._clean_name(name)
@@ -64,8 +82,9 @@ class VoteStorage:
 
     def remove_vote(self, name: str) -> bool:
         cleaned = self._clean_name(name)
-        if cleaned in self._votes:
-            del self._votes[cleaned]
+        writable = self._writable_votes()
+        if cleaned in writable:
+            del writable[cleaned]
             return True
         return False
 
