@@ -34,6 +34,17 @@ $ cd experimental.doodle
 $ make start
 ```
 
+You can browse the Plone site at `http://localhost:8080` with the following credentials:
+
+- Username: `admin`
+- Password: `admin`
+
+To run the tests, use the following command:
+
+```shell
+$ make test
+```
+
 ## Installation
 
 Install experimental.doodle with `pip`:
