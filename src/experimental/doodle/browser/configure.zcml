@@ -31,5 +31,13 @@
       layer="experimental.doodle.interfaces.IBrowserLayer"
       />
 
+  <browser:page
+      name="toggle-participation"
+      for="experimental.doodle.interfaces.IExperimentalDoodleDate"
+      class=".participation.ToggleParticipationView"
+      permission="zope2.View"
+      layer="experimental.doodle.interfaces.IBrowserLayer"
+      />
+
 
 </configure>

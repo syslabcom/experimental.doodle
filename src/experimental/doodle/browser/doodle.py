@@ -1,4 +1,6 @@
 from datetime import date
+
+import plone.api
 from Products.Five.browser import BrowserView
 
 
@@ -6,6 +8,8 @@ class DoodleView(BrowserView):
     """Render date options in a simple doodle-style table."""
 
     def rows(self):
+        current = plone.api.user.get_current()
+        userid = current.getId() if current else None
         items = [
             obj
             for obj in self.context.objectValues()
@@ -27,6 +31,9 @@ class DoodleView(BrowserView):
                     "title": item.Title(),
                     "date": when,
                     "participants": participants,
+                    "selected": bool(userid and userid in participants),
+                    "toggle_url": f"{item.absolute_url()}/@@toggle-participation",
+                    "can_toggle": bool(userid),
                 }
             )
         return rows

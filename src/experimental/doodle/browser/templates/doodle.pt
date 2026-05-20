@@ -15,11 +15,12 @@
             <th>Date</th>
             <th>Option</th>
             <th>Participants</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
           <tr tal:repeat="row view/rows">
-            <td tal:content="python:view.date_label(row['date'])">2026-01-01 10:00</td>
+            <td tal:content="python:view.date_label(row['date'])">2026-01-01</td>
             <td tal:content="row/title">Date option</td>
             <td>
               <span tal:condition="python:not row['participants']">No participants yet</span>
@@ -29,6 +30,14 @@
                       class string:label;
                     "
               >member</span>
+            </td>
+            <td>
+              <a tal:condition="row/can_toggle"
+                 tal:content="python:'Unselect' if row['selected'] else 'Select'"
+                 tal:attributes="
+                   href row/toggle_url;
+                 "
+              >Select</a>
             </td>
           </tr>
         </tbody>

@@ -34,6 +34,7 @@ class IExperimentalDoodleDate(model.Schema):
         required=True,
     )
 
+    form.write_permission(participants="zope2.View")
     participants = schema.Set(
         title="Participants",
         description="User ids who selected this date.",
