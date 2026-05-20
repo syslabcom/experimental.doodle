@@ -18,6 +18,14 @@ This part of the documentation contains reference material, including APIs, conf
 https://diataxis.fr/reference/
 ```
 
+## Content types
+
+```{toctree}
+:maxdepth: 1
+
+poll-content-type
+```
+
 ## Configuration
 
 -   {doc}`plone:contributing/documentation/themes-and-extensions`
