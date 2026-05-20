@@ -31,6 +31,8 @@ classifiers = [
 dependencies = [
     "Products.CMFPlone",
     "plone.api",
+    "plone.app.dexterity",
+    "plone.autoform",
     "z3c.jbot",
 ]
 

@@ -1,0 +1,95 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="experimental.doodle"
+      metal:use-macro="context/@@main_template/macros/master"
+      >
+
+  <body>
+    <metal:slot fill-slot="main">
+      <link rel="stylesheet"
+            tal:attributes="href string:${context/portal_url}/++resource++experimental.doodle/doodle.css"
+            />
+      <div class="doodle-card doodle-answer">
+        <header class="doodle-header">
+          <div class="doodle-header-top">
+            <div class="doodle-header-text">
+              <h1 tal:content="context/Title">Doodle title</h1>
+              <p class="doodle-subtitle" i18n:translate="">
+                Which dates work for you?
+              </p>
+            </div>
+            <div class="doodle-header-actions"
+                 tal:condition="view/is_creator"
+                 >
+              <a class="btn btn-secondary btn-sm"
+                 tal:attributes="href view/results_url"
+                 i18n:translate=""
+                 >View results</a>
+            </div>
+          </div>
+        </header>
+
+        <div class="doodle-body">
+          <div class="doodle-share-box"
+               tal:condition="view/is_creator"
+               >
+            <p class="doodle-share-label" i18n:translate="">Share this link</p>
+            <input type="text"
+                   readonly="readonly"
+                   class="doodle-share-url"
+                   tal:attributes="value context/absolute_url"
+                   />
+            <p class="doodle-share-warning" i18n:translate="">
+              Remember to publish this doodle before sharing, or members will not be able to view it.
+            </p>
+          </div>
+
+          <div class="doodle-meta">
+            <p class="doodle-meta-line">
+              <span i18n:translate="">Answering as</span>
+              <strong tal:content="view/display_name">Member</strong>
+            </p>
+          </div>
+
+          <form action=""
+                method="post"
+                class="doodle-answer-form"
+                >
+            <input type="hidden" name="form.submitted" value="1" />
+            <span tal:replace="structure context/@@authenticator/authenticator" />
+
+            <fieldset class="doodle-fieldset">
+              <legend i18n:translate="">Available dates</legend>
+              <ul class="doodle-date-options">
+                <li class="doodle-date-option"
+                    tal:repeat="candidate view/candidate_dates"
+                    >
+                  <input type="checkbox"
+                         name="selected_dates"
+                         class="doodle-date-checkbox"
+                         tal:attributes="id python:'doodle-date-' + candidate.isoformat();
+                                         value candidate/isoformat;
+                                         checked python:candidate.isoformat() in view.selected"
+                         />
+                  <label class="doodle-date-label"
+                         tal:attributes="for python:'doodle-date-' + candidate.isoformat()"
+                         tal:content="python:view.format_date_long(candidate)"
+                         >May 20, 2026 · Tuesday</label>
+                </li>
+              </ul>
+            </fieldset>
+
+            <div class="doodle-form-footer">
+              <button type="submit"
+                      class="btn btn-primary"
+                      i18n:translate=""
+                      >Save my answer</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </metal:slot>
+  </body>
+</html>

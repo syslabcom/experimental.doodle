@@ -3,6 +3,12 @@
           i18n:domain="experimental.doodle"
 >
 
-  <!-- -*- extra stuff goes here -*- -->
+  <records interface="plone.base.interfaces.IBundleRegistry"
+           prefix="plone.bundles/experimental.doodle"
+           >
+    <value key="enabled">True</value>
+    <value key="csscompilation">++resource++experimental.doodle/doodle.css</value>
+    <value key="merge_with">logged-in</value>
+  </records>
 
 </registry>

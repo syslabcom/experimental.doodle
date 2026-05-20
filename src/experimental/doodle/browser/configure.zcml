@@ -1,7 +1,6 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:browser="http://namespaces.zope.org/browser"
-    xmlns:plone="http://namespaces.plone.org/plone"
     i18n_domain="experimental.doodle"
     >
 
@@ -15,11 +14,26 @@
       layer="experimental.doodle.interfaces.IBrowserLayer"
       />
 
-  <!-- Publish static files -->
-  <plone:static
-      directory="static"
+  <!-- ++resource++ URLs use Five browser resources, not plone:static -->
+  <browser:resourceDirectory
       name="experimental.doodle"
-      type="plone"
+      directory="static"
+      />
+
+  <browser:page
+      for="experimental.doodle.content.interfaces.IDoodle"
+      name="view"
+      class=".views.AnswerView"
+      permission="zope2.View"
+      layer="experimental.doodle.interfaces.IBrowserLayer"
+      />
+
+  <browser:page
+      for="experimental.doodle.content.interfaces.IDoodle"
+      name="results"
+      class=".views.ResultsView"
+      permission="zope2.View"
+      layer="experimental.doodle.interfaces.IBrowserLayer"
       />
 
 </configure>
