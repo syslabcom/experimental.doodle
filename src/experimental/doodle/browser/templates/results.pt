@@ -1,0 +1,82 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      metal:use-macro="context/@@main_template/macros/master"
+      i18n:domain="experimental.doodle"
+>
+
+  <body>
+    <metal:content-core fill-slot="content-core">
+      <metal:block define-macro="content-core">
+
+        <link rel="stylesheet"
+              tal:attributes="
+                href string:${context/@@plone_portal_state/portal_url}/++plone++experimental.doodle/poll.css;
+              "
+        />
+
+        <h1 class="documentFirstHeading"
+            tal:content="context/title"
+        >Poll title</h1>
+
+        <p class="documentDescription"
+           tal:condition="context/description"
+           tal:content="context/description"
+        >Description</p>
+
+        <tal:no-votes condition="not:view/rows">
+          <p i18n:translate="">No votes have been cast yet.</p>
+        </tal:no-votes>
+
+        <tal:has-rows condition="view/rows">
+
+          <table class="poll-results">
+            <thead>
+              <tr>
+                <th i18n:translate="">Time slot</th>
+                <th i18n:translate="">Yes votes</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr tal:repeat="row view/rows">
+                <td tal:content="python:row[0]">Slot label</td>
+                <td class="poll-count"
+                    tal:content="python:row[1]"
+                >0</td>
+                <td class="poll-bar-cell">
+                  <div class="poll-bar"
+                       tal:attributes="
+                         style python:'width: {}%'.format(
+                     round(row[1] / row[2] * 100) if row[2] else 0);
+                       "
+                  ></div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+        </tal:has-rows>
+
+        <tal:has-participants condition="view/participants">
+          <h2 i18n:translate="">Participants</h2>
+          <ul class="poll-participants">
+            <li tal:repeat="name view/participants"
+                tal:content="name"
+            >Name</li>
+          </ul>
+        </tal:has-participants>
+
+        <p>
+          <a tal:attributes="
+               href string:${context/absolute_url}/@@poll_view;
+             "
+             i18n:translate=""
+          >Back to poll</a>
+        </p>
+
+      </metal:block>
+    </metal:content-core>
+  </body>
+</html>

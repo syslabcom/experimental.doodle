@@ -18,3 +18,11 @@ The Diátaxis framework also calls this class of documentation _explanation_.
 ```{seealso}
 https://diataxis.fr/explanation/
 ```
+
+## Available concepts
+
+```{toctree}
+:maxdepth: 1
+
+domain-model
+```

@@ -1,0 +1,92 @@
+/* experimental.doodle — Poll styles */
+
+.poll-form {
+  margin: 1.5rem 0;
+}
+
+.poll-name-field {
+  margin-bottom: 1rem;
+}
+
+.poll-name-field label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+}
+
+.poll-name-field input[type="text"] {
+  width: 20rem;
+  max-width: 100%;
+  padding: 0.3rem 0.5rem;
+}
+
+.poll-options {
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+}
+
+.poll-options th,
+.poll-options td {
+  border: 1px solid #ccc;
+  padding: 0.4rem 0.75rem;
+  text-align: left;
+}
+
+.poll-options th {
+  background: #f5f5f5;
+}
+
+.poll-yes,
+.poll-no {
+  text-align: center;
+  white-space: nowrap;
+}
+
+.poll-submit {
+  margin-top: 0.75rem;
+}
+
+.poll-participant-count {
+  color: #666;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+}
+
+/* Results */
+
+.poll-results {
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.poll-results th,
+.poll-results td {
+  border: 1px solid #ccc;
+  padding: 0.4rem 0.75rem;
+  text-align: left;
+}
+
+.poll-results th {
+  background: #f5f5f5;
+}
+
+.poll-count {
+  text-align: right;
+  width: 4rem;
+}
+
+.poll-bar-cell {
+  width: 50%;
+}
+
+.poll-bar {
+  background: #007bb5;
+  height: 1.1rem;
+  min-width: 2px;
+}
+
+.poll-participants {
+  list-style: disc;
+  padding-left: 1.5rem;
+}

@@ -22,4 +22,21 @@
       type="plone"
       />
 
+  <!-- Poll views -->
+  <browser:page
+      name="poll_view"
+      for="experimental.doodle.content.poll.IPoll"
+      class=".poll.PollView"
+      permission="zope2.View"
+      layer="experimental.doodle.interfaces.IBrowserLayer"
+      />
+
+  <browser:page
+      name="results"
+      for="experimental.doodle.content.poll.IPoll"
+      class=".poll.PollResultsView"
+      permission="zope2.View"
+      layer="experimental.doodle.interfaces.IBrowserLayer"
+      />
+
 </configure>
