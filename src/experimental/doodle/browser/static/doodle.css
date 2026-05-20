@@ -329,12 +329,13 @@
 
 .doodle-count {
   display: inline-block;
-  min-width: 1.75rem;
+  min-width: 3.25rem;
   padding: 0.15rem 0.5rem;
   font-weight: 600;
   text-align: center;
   background: #e9ecef;
   border-radius: 0.25rem;
+  white-space: nowrap;
 }
 
 .doodle-results-table tr.doodle-best .doodle-count {

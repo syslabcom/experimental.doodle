@@ -45,8 +45,8 @@
                 <td tal:content="python:view.format_date(row['date'])">May 20, 2026</td>
                 <td>
                   <span class="doodle-count"
-                        tal:content="row/count"
-                        >0</span>
+                        tal:content="python:'%d / %d' % (row['count'], view.total_users)"
+                        >0 / 0</span>
                 </td>
                 <td tal:content="python:', '.join(row['names']) if row['names'] else '-'">-</td>
               </tr>

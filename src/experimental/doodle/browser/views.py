@@ -1,6 +1,7 @@
 from experimental.doodle import _
 from experimental.doodle.answers import build_results
 from experimental.doodle.answers import get_answer_for_user
+from experimental.doodle.answers import get_answers
 from experimental.doodle.answers import upsert_answer
 from experimental.doodle.utils import can_view_results
 from experimental.doodle.utils import format_date
@@ -85,6 +86,7 @@ class ResultsView(BrowserView):
         if not can_view_results(self.context):
             raise Unauthorized()
         self.rows = build_results(self.context)
+        self.total_users = len(get_answers(self.context))
         self.answer_url = self.context.absolute_url()
 
     def format_date(self, value):
