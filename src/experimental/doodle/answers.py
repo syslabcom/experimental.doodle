@@ -21,12 +21,10 @@ def get_answer_for_user(context, userid):
 
 def upsert_answer(context, userid, display_name, selected_dates):
     """Create or replace a user's answer."""
-    normalized = sorted(
-        {
-            value.isoformat() if isinstance(value, date) else value
-            for value in selected_dates
-        }
-    )
+    normalized = sorted({
+        value.isoformat() if isinstance(value, date) else value
+        for value in selected_dates
+    })
     annotations = IAnnotations(context)
     answers = list(annotations.get(ANSWERS_KEY, []))
     for entry in answers:
@@ -35,13 +33,11 @@ def upsert_answer(context, userid, display_name, selected_dates):
             entry["selected_dates"] = normalized
             annotations[ANSWERS_KEY] = answers
             return
-    answers.append(
-        {
-            "userid": userid,
-            "display_name": display_name,
-            "selected_dates": normalized,
-        }
-    )
+    answers.append({
+        "userid": userid,
+        "display_name": display_name,
+        "selected_dates": normalized,
+    })
     annotations[ANSWERS_KEY] = answers
 
 
@@ -62,12 +58,10 @@ def build_results(context):
     for candidate in candidate_dates:
         iso = candidate.isoformat()
         info = by_date[iso]
-        rows.append(
-            {
-                "date": candidate,
-                "iso": iso,
-                "count": info["count"],
-                "names": info["names"],
-            }
-        )
+        rows.append({
+            "date": candidate,
+            "iso": iso,
+            "count": info["count"],
+            "names": info["names"],
+        })
     return rows
