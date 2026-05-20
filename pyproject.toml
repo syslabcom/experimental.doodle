@@ -31,7 +31,6 @@ classifiers = [
 dependencies = [
     "Products.CMFPlone",
     "plone.api",
-    
     "z3c.jbot",
 ]
 
@@ -60,15 +59,16 @@ Tracker = "https://github.com/collective/experimental.doodle/issues"
 [project.entry-points."z3c.autoinclude.plugin"]
 target = "plone"
 
-[tool.uv]
-managed = false
-
-[tool.hatch.version]
-path = "src/experimental/doodle/__init__.py"
-
-[build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
+# ...existing code...
+[tool.ruff]
+exclude = [
+    ".git",
+    ".tox",
+    "venv",
+    "build",
+    "dist",
+    "docs",
+]
 
 [tool.hatch.build]
 strict-naming = true
@@ -120,38 +120,6 @@ directory = "tests"
 name = "Tests"
 showcontent = true
 
-[tool.ruff]
-target-version = "py310"
-line-length = 88
-fix = true
-lint.select = [
-    # flake8-2020
-    "YTT",
-    # flake8-bandit
-    "S",
-    # flake8-bugbear
-    "B",
-    # flake8-builtins
-    "A",
-    # flake8-comprehensions
-    "C4",
-    # flake8-debugger
-    "T10",
-    # flake8-simplify
-    "SIM",
-    # mccabe
-    "C90",
-    # pycodestyle
-    "E", "W",
-    # pyflakes
-    "F",
-    # pygrep-hooks
-    "PGH",
-    # pyupgrade
-    "UP",
-    # ruff
-    "RUF",
-]
 lint.ignore = [
     # DoNotAssignLambda
     "E731",
