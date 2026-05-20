@@ -19,11 +19,19 @@
 
 </div>
 
-A new addon for Plone
+A new addon for Plone that should behave like doodle.
+This is an experimental package, used for an exercise.
 
 ## Features
 
-TODO: List our awesome features
+TODO: replace doodle.
+
+## Exercise instructions
+
+```shell
+$ git clone git@github.com:syslabcom/experimental.doodle.git
+$ make start
+```
 
 ## Installation
 
