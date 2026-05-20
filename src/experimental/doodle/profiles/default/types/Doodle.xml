@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<object meta_type="Dexterity FTI"
+<object xmlns:i18n="http://xml.zope.org/i18n"
+        meta_type="Dexterity FTI"
         name="Doodle"
         i18n:domain="plone"
-        xmlns:i18n="http://xml.zope.org/i18n"
-        >
+>
   <property name="title"
             i18n:translate=""
-            >Doodle</property>
+  >Doodle</property>
   <property name="description"
             i18n:translate=""
-            >Poll participants on meeting dates.</property>
+  >Poll participants on meeting dates.</property>
   <property name="factory">doodle</property>
   <property name="schema">experimental.doodle.content.interfaces.IDoodle</property>
   <property name="klass">experimental.doodle.content.doodle.Doodle</property>

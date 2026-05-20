@@ -1,30 +1,36 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       xmlns:metal="http://xml.zope.org/namespaces/metal"
       xmlns:tal="http://xml.zope.org/namespaces/tal"
-      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-      i18n:domain="experimental.doodle"
       metal:use-macro="context/@@main_template/macros/master"
-      >
+      i18n:domain="experimental.doodle"
+>
 
   <body>
     <metal:slot fill-slot="main">
       <link rel="stylesheet"
-            tal:attributes="href string:${context/portal_url}/++resource++experimental.doodle/doodle.css"
-            />
+            tal:attributes="
+              href string:${context/portal_url}/++resource++experimental.doodle/doodle.css;
+            "
+      />
       <div class="doodle-card doodle-results">
         <header class="doodle-header">
           <div class="doodle-header-top">
             <div class="doodle-header-text">
               <h1 tal:content="context/Title">Doodle title</h1>
-              <p class="doodle-subtitle" i18n:translate="">
+              <p class="doodle-subtitle"
+                 i18n:translate=""
+              >
                 Pick the best date to meet.
               </p>
             </div>
             <div class="doodle-header-actions">
               <a class="btn btn-secondary btn-sm"
-                 tal:attributes="href view/answer_url"
+                 tal:attributes="
+                   href view/answer_url;
+                 "
                  i18n:translate=""
-                 >Back to answer form</a>
+              >Back to answer form</a>
             </div>
           </div>
         </header>
@@ -40,13 +46,15 @@
             </thead>
             <tbody>
               <tr tal:repeat="row view/rows"
-                  tal:attributes="class python:'doodle-best' if row['count'] == max((r['count'] for r in view.rows), default=0) and row['count'] > 0 else ''"
-                  >
+                  tal:attributes="
+                    class python:'doodle-best' if row['count'] == max((r['count'] for r in view.rows), default=0) and row['count'] > 0 else '';
+                  "
+              >
                 <td tal:content="python:view.format_date(row['date'])">May 20, 2026</td>
                 <td>
                   <span class="doodle-count"
                         tal:content="python:'%d / %d' % (row['count'], view.total_users)"
-                        >0 / 0</span>
+                  >0 / 0</span>
                 </td>
                 <td tal:content="python:', '.join(row['names']) if row['names'] else '-'">-</td>
               </tr>
