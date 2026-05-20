@@ -42,11 +42,12 @@
 
   <!-- View information -->
   <property name="add_view_expr">string:${folder_url}/++add++Poll</property>
-  <property name="default_view">view</property>
+  <property name="default_view">poll_view</property>
   <property name="default_view_fallback">False</property>
-  <property name="immediate_view">view</property>
+  <property name="immediate_view">poll_view</property>
   <property name="view_methods">
-    <element value="view" />
+    <element value="poll_view" />
+    <element value="results" />
   </property>
 
   <!-- Method aliases -->

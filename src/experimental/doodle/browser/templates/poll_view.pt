@@ -1,0 +1,116 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      metal:use-macro="context/@@main_template/macros/master"
+      i18n:domain="experimental.doodle"
+>
+
+<body>
+<metal:content-core fill-slot="content-core">
+<metal:block define-macro="content-core">
+
+  <link rel="stylesheet"
+        tal:attributes="href string:${context/@@plone_portal_state/portal_url}/++plone++experimental.doodle/poll.css"
+  />
+
+  <tal:no-options condition="not:view/options">
+    <p i18n:translate="">No time slots have been proposed yet.</p>
+  </tal:no-options>
+
+  <tal:has-options condition="view/options">
+
+    <tal:error condition="view/error">
+      <div class="portalMessage error"
+           role="alert"
+      >
+        <span tal:replace="view/error">Error message</span>
+      </div>
+    </tal:error>
+
+    <form method="POST"
+          tal:attributes="action string:${context/absolute_url}/@@poll_view"
+          class="poll-form"
+    >
+      <div class="poll-name-field">
+        <label for="poll-name"
+               i18n:translate=""
+        >Your name</label>
+        <input type="text"
+               id="poll-name"
+               name="name"
+               required="required"
+               placeholder="Enter your name"
+               i18n:attributes="placeholder"
+        />
+      </div>
+
+      <table class="poll-options">
+        <thead>
+          <tr>
+            <th i18n:translate="">Time slot</th>
+            <th i18n:translate="">Yes</th>
+            <th i18n:translate="">No</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr tal:repeat="option view/options">
+            <td tal:content="python:option[1]">Slot label</td>
+            <td class="poll-yes">
+              <input type="radio"
+                     tal:attributes="name python:'votes_{}'.format(option[0]);
+                                     id python:'votes_{}_yes'.format(option[0])"
+                     value="true"
+              />
+              <label tal:attributes="for python:'votes_{}_yes'.format(option[0])"
+                     i18n:translate=""
+              >Yes</label>
+            </td>
+            <td class="poll-no">
+              <input type="radio"
+                     tal:attributes="name python:'votes_{}'.format(option[0]);
+                                     id python:'votes_{}_no'.format(option[0])"
+                     value="false"
+                     checked="checked"
+              />
+              <label tal:attributes="for python:'votes_{}_no'.format(option[0])"
+                     i18n:translate=""
+              >No</label>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="poll-submit">
+        <input type="submit"
+               class="btn-primary"
+               value="Cast vote"
+               i18n:attributes="value"
+        />
+      </div>
+    </form>
+
+    <p class="poll-participant-count"
+       tal:condition="view/participant_count"
+    >
+      <tal:count replace="view/participant_count" />
+      <tal:singular condition="python:view.participant_count == 1">
+        <span i18n:translate=""> person has already voted.</span>
+      </tal:singular>
+      <tal:plural condition="python:view.participant_count != 1">
+        <span i18n:translate=""> people have already voted.</span>
+      </tal:plural>
+    </p>
+
+    <p>
+      <a tal:attributes="href string:${context/absolute_url}/@@results"
+         i18n:translate=""
+      >View results</a>
+    </p>
+
+  </tal:has-options>
+
+</metal:block>
+</metal:content-core>
+</body>
+</html>
