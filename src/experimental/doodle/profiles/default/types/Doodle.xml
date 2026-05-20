@@ -14,7 +14,7 @@
   <property name="schema">experimental.doodle.content.interfaces.IDoodle</property>
   <property name="klass">experimental.doodle.content.doodle.Doodle</property>
   <property name="add_view_expr">string:${folder_url}/++add++Doodle</property>
-  <property name="icon_expr">string:contenttype/event</property>
+  <property name="icon_expr">string:contenttype/doodle</property>
   <property name="filter_content_types">True</property>
   <property name="allowed_content_types" />
   <property name="global_allow">True</property>
